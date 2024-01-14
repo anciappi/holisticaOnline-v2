@@ -1,0 +1,22 @@
+{% extends 'core/layouts/bases.html' %}
+
+{% block title %}Terapeutas{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light mb-3">
+  <section class=" py-5 text-start container">
+      <div class="row py-lg-1">
+        <div class="col-lg-6">
+          <h1 class="fw-light text-dark">Terapeutas</h1>
+          <p class="lead text-dark">Conoce todas las terapias que tenemos para ti</p>
+        </div>
+      </div>
+  </section>  
+</div>
+<div class="container-fluid bg-light mb-3">
+  <section class=" py-5 text-start container">
+      {% include 'core/layouts/cards.html' %}
+  </section>  
+</div>
+
+{% endblock %}

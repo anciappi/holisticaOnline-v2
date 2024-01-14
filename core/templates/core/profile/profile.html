@@ -1,0 +1,142 @@
+{% extends 'core/layouts/bases.html' %}
+
+{% block title %}Mi perfil | {{user.username | title}}{% endblock %}
+
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+    <div class="container my-3" >
+
+        <div class="row">
+
+            <!-- Info perfil izquierda -->
+            <div class="col-md-4">
+                <!-- CARD DATOS USUARIO -->
+                <div class=" card border rounded-2 shadow-sm p-3 mb-3">
+                    <div class="card-body">
+                        <img class="img-thumbnail rounded-circle mb-3" src="{{user.profile.image.url}}" alt="{{user.username}}" style="width: 150px">
+                        <h2 class="card-title">{{user.username | title}} {{user.last_name}}</h2>
+                        <h4 class="card-title">{{user.groups}}</h4>
+                        <hr>
+                        <p><i class="bi bi-book"></i> <strong>Region: </strong>{{ user.profile.country }} | {{ user.profile.city }}</p>
+                        <p><i class="bi bi-instagram"> </i><strong>Instagram:</strong> {{user.profile.instagram}} </p>
+                        <p><strong>Facebook:</strong> {{user.profile.facebook}} </p>
+                        <p><strong>WhatsApp:</strong> {{user.profile.phone}} </p>
+                        <p><strong>Mail:</strong> {{user.email}} </p>
+                        <hr>
+                        <a class="btn btn-warning shadow-sm w-100 mb-2" href="{% url 'logout' %}">Logout</a>
+                        
+                        <button class="btn btn-secondary w-100 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Editar Perfíl
+                        </button>
+                        
+                          <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    
+                                    <div class="modal-body">
+                                        <!-- Titulo -->
+                                        <div class="mb-3">
+                                            <label for="image" class="mb-2">Imagen de perfil</label>
+                                            <input class="form-control" type="file" name="image" id="image">
+                                        </div>
+            
+                                        <!-- Nombre / apellido / titulo -->
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="first_name" class="mb-2">Nombre</label>
+                                                <input class="form-control" type="text" name="first_name" id="first_name" value="{{user.first_name | title}}">
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="last_name" class="mb-2">Apellido</label>
+                                                <input class="form-control" type="text" name="last_name" id="last_name" value="{{user.last_name | title}}">
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="titulo" class="mb-2">Título</label>
+                                                <input class="form-control" type="text" name="titulo" id="titulo" value="{{user.profile.titulo| title}}">
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="first_name" class="mb-2">WhatsApp</label>
+                                                <input class="form-control" type="text" name="phone" id="phone" value="{{user.profile.phone | title}}">
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="first_name" class="mb-2">Email</label>
+                                                <input class="form-control" type="text" name="email" id="email" value="{{user.email}}" disabled>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- Ubicacion -->
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="first_name" class="mb-2">Pais</label>
+                                                <input class="form-control" type="text" name="country" id="country" value="{{user.profile.country | title}}">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="last_name" class="mb-2">Ciudad</label>
+                                                <input class="form-control" type="text" name="city" id="city" value="{{user.profile.city | title}}">
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="last_name" class="mb-2">Instagram</label>
+                                                <input class="form-control" type="text" name="instagram" id="instagram" value="{{user.profile.instagram}}">
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="last_name" class="mb-2">Facebook</label>
+                                                <input class="form-control" type="text" name="facebook" id="facebook" value="{{user.profile.facebook}}">
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="last_name" class="mb-2">Twitter</label>
+                                                <input class="form-control" type="text" name="twitter" id="twitter" value="{{user.profile.twitter}}">
+                                            </div>
+                                        </div>
+            
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="last_name" class="mb-2">Contanos sobre vos</label>
+                                                <textarea class="form-control" id="" cols="30" rows="8" maxlength="500" name="description">{{user.profile.description | title }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12 mb-3">
+                                                <input type="checkbox" name="terapias" id="terapias">
+                                                <label for="terapias" class="mb-2">{{user.profile.terapias}}</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary ">Actualizar datos personales</button>
+                                            <button type="reset" class="btn btn-warning ">Resetear</button>
+                                        </div> 
+                                                       
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+                <!-- Info perfil derecha -->
+                <div class="col-md">
+
+                    <!-- Previsualizacion publicacion -->
+                    <h4 class="card-title my-3">Ejemplo Publicación</h4>
+                    {% include 'core/layouts/cards.html' %}
+
+                    
+                                    
+                </div>                                                         
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

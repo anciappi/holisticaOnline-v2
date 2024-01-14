@@ -1,0 +1,54 @@
+{% extends 'core/layouts/bases.html' %}
+
+{% load static %}
+
+{% block title %}Terapias{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid bg-secondary mb-3">
+  <section class=" py-5 text-start container">
+      <div class="row py-lg-1">
+        <div class="col-lg-6">
+          <h1 class="fw-light text-white">Terapias Holisticas</h1>
+          <p class="lead text-white">Conoce todas las terapias que tenemos para ti</p>
+        </div>
+      </div>
+  </section>
+</div>
+
+<main class="container">
+  
+  <!-- Inicio Galeria -->
+    <div class="album py-5">
+      <div class="container">
+        
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for terapia in object_list %}
+          <div class="col">
+            <div class="card shadow-sm">
+                <img class="bd-placeholder-img card-img-top" width="100%" height="225" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false img-thumbnail rounded mb-3 w-100" src={{terapia.image.url}} alt="{{user.username}}" style: width="150px">
+              <div class="card-body">
+                <h4>{{terapia.title}}</h4>
+                <h6>{{terapia.subtitle}}</h6>
+                <p class="card-text">{{terapia.description}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group ">
+                    <button type="button" class="btn btn-sm btn-outline-secondary me-2">Conoce +</button>
+                    <button type="button" class="btn btn-sm btn-outline-success">Terapeutas</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>        
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+
+  <!-- Fin galeria -->
+  
+
+</main>
+{% endblock %}
